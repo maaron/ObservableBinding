@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +21,33 @@ namespace ObservableBinding
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static BehaviorSubject<T> Behavior<T>(T initialValue)
+        {
+            return new BehaviorSubject<T>(initialValue);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = DesignData;
         }
+
+        public static object DesignData = new
+        {
+            Text = Behavior("asdf"),
+            Items = new[]
+            {
+                new { Text = Behavior("qwer") }
+            },
+            Child1 = new
+            {
+                Text = Behavior("child1 text")
+            },
+            Child2 = new
+            {
+                Text = Behavior("child1 text")
+            }
+        };
     }
 }

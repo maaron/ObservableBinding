@@ -6,7 +6,55 @@
         xmlns:local="clr-namespace:ObservableBinding"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+
+    <Window.Resources>
+        <ControlTemplate x:Key="ReusedTemplate">
+            <TextBlock Text="{local:ObservableBinding Text}"/>
+        </ControlTemplate>
+
+        <Style x:Key="ActiveRectangle" TargetType="{x:Type Rectangle}" >
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Fill" Value="{local:StyleBinding}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Fill" Value="{local:StyleBinding}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Text" Value="{local:StyleBinding}"/>
+        </Style>
+    </Window.Resources>
+    
+    <StackPanel>
+        <TextBlock Text="{local:ObservableBinding Path=Text}"/>
+        <!--
+        <TextBlock Text="{local:ObservableBinding Path=Text}"/>
+        <ContentControl>
+            <ContentControl.Template>
+                <ControlTemplate>
+                    <TextBlock Text="{local:ObservableBinding Path=Text}"/>
+                </ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+        <ContentControl Template="{StaticResource ReusedTemplate}" Content="{Binding Child1}"/>
+        <ContentControl Template="{StaticResource ReusedTemplate}" Content="{Binding Child2}"/>
+        <TextBlock>
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="{local:ObservableBinding Text}"/>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ListView ItemsSource="{Binding Items}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Text" DisplayMemberBinding="{local:ObservableBinding Text}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        -->
+    </StackPanel>
 </Window>
